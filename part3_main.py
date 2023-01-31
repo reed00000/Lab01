@@ -16,4 +16,5 @@ with open('data_table.csv', newline='') as csvfile:
 direct_output = subprocess.run(['./part3_calc.out', col_1, col_2], stdout=subprocess.PIPE)
 
 output = direct_output.stdout
+
 print(output)
