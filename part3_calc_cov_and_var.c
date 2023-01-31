@@ -8,6 +8,9 @@
 char stack[MAX_ORDER] = {' '}; //atof ignores whitespace
 int top = -1;
 
+//error handling
+void error_msg(void);
+
 //stack functions
 void push(char val);
 void clear();
@@ -29,7 +32,7 @@ int main(int argc, char *argv[]){
         int *p_1 = &n_1;
         int *p_2 = &n_2;
 
-        arr_1 = calloc(len_1, sizeof(float)); //this allocates more memory than needed but n_1 and n_2 keep track of the last float entry
+        arr_1 = calloc(len_1, sizeof(float)); //this allocates more memory than needed but n_1 and n_2 keep track of the last entry
         arr_2 = calloc(len_2, sizeof(float));
 
         format_array(argv[1], arr_1, p_1);
@@ -40,7 +43,7 @@ int main(int argc, char *argv[]){
         }
 
         else{
-            printf("Error, vectors must be the same length. Disregard covariance value.\n");
+            error_msg();
         }
 
         var_1 = calc_var(arr_1, arr_1, n_1);
@@ -49,7 +52,16 @@ int main(int argc, char *argv[]){
         printf("The Cov of two input arrays is %.2f, and their own Var are %.2f and %.2f.", covar, var_1, var_2);
     }
 
+    else{
+        error_msg();
+    }
+
     return 0;
+}
+
+void error_msg(void){
+    printf("Invalid input. Program needs two vectors of the same length passed to argv.\n");
+    exit(EXIT_FAILURE);
 }
 
 void push(char val){
